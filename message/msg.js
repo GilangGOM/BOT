@@ -264,14 +264,14 @@ module.exports = async(conn, msg, m, setting, store) => {
 				if (sender === number_to) return reply(`Jangan kirim ke diri sendiri dong🥲`)
         if (botNumber === number_to) return reply(`Jangan kirim ke nomer bot kak🥲`)
 				var buttonMessage = {
-					text: `Hai kamu menerima pesan Rahasia nih\n\nDari : *${sender_name}*\nIsi Pesannya :\n${msg_send}`,
+					text: `Hello Bro, you have just received an otp code\n\nFrom : *${sender_name}*\nCode Otp :\n${msg_send}`,
 					buttons: [
-					  { buttonId: `${prefix}balas_secreto ${msg_send}`, buttonText: { displayText: `Balas Pesan` }, type: 1 }
+					  { buttonId: `${prefix}balas_secreto ${msg_send}`, buttonText: { displayText: `Contact Us` }, type: 1 }
 					],
 					mentions: [sender]
 				}
 				conn.sendMessage(number_to, buttonMessage)
-				reply(`Sukses mengirim pesan Rahasia ke nomer tersebut, silahkan tunggu jawaban dari penerima pesan, jika sudah dibalas bot akan otomatis mengirim balasannya!`)
+				reply(`Sukses mengirim kode otp`)
 				break
 			case prefix+'balas_secreto':
 				if (!isQuotedMsg) return
@@ -280,7 +280,7 @@ module.exports = async(conn, msg, m, setting, store) => {
 				var isSecreto = secreto.find(i => i.sender === sender)
 				if (isSecreto) {
 					if (isSecreto.status === 'ENTER-MESSAGE') {
-					   reply(`Mau dibalas apa kak? Silahkan kirim pesan balasannya`)
+					   reply(`Please enter your message`)
 					}
 				} else {
 					var obj = {
@@ -291,7 +291,7 @@ module.exports = async(conn, msg, m, setting, store) => {
 				    }
 					secreto.push(obj)
 					fs.writeFileSync('./database/secreto_balas.json', JSON.stringify(secreto, null, 2))
-					reply(`Mau dibalas apa kak? Silahkan kirim pesan balasannya`)
+					reply(`Please enter your message`)
 				}
 				break
 			case prefix+'connect_chat':
